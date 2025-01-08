@@ -6,4 +6,5 @@ product_router.get("/", product_controller.getAll.bind(product_controller))
 product_router.post("/", product_controller.create.bind(product_controller))
 product_router.delete("/:id", product_controller.delete.bind(product_controller))
 
+
 module.exports = {product_router}

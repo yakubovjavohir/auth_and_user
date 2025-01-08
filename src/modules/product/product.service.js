@@ -7,7 +7,7 @@ class ProductService {
     }
 
     async findData(){
-        const data = await this.#productservice.find().populate("categoryID").populate("rowID").exec()
+        const data = await this.#productservice.find().populate("categoryID").exec()
         const resdata = new ResData(200, "success", data)
         return resdata
     }
@@ -18,8 +18,7 @@ class ProductService {
             decr:dto.decr,
             price:dto.price,
             count:dto.count,
-            categoryID:dto.categoryID,
-            rowID:dto.rowID
+            categoryID:dto.categoryID
         })
         const resdata = new ResData(201, "success", data)
         return resdata
@@ -28,6 +27,12 @@ class ProductService {
     async deleteData(id){
         const data = await this.#productservice.deleteOne({_id:id})
         const resdata = new ResData(200, "delete data", data)
+        return resdata
+    }
+
+    async getById(id){
+        const data = await this.#productservice.findOne({_id:id})
+        const resdata = new ResData(200, "succes", data)
         return resdata
     }
 }
