@@ -1,6 +1,5 @@
 const { ResData } = require("../../lib/resData")
 const { CategoryModel } = require("./entity/category.entity")
-
 class CategoryService {
     #Categoryservice
     constructor(Categoryservice){

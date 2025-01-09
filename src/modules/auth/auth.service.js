@@ -6,14 +6,18 @@ const { CustomError } = require("../../lib/customError");
 
 class AuthService {
     async register(dto) {
-        console.log(dto);
         
         const { name, phone, password, role } = dto;
     
-        const existingUser = await UserModel.findOne({ phone });
-        console.log(existingUser);
+        const existingUser = await UserModel.find();
+
         
-        if (!existingUser) {
+
+        const findPhone = existingUser.findIndex((el)=>{
+            return el.phone === phone
+        })
+        
+        if (findPhone !== -1) {
             throw new CustomError(400, "User already exists");
         }
 

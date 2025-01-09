@@ -27,6 +27,8 @@ class UserService {
 
     async deleteData(id) {
         const data = await this.#userservice.deleteOne({ _id: id })
+        console.log(data);
+        
         const resdata = new ResData(200, "delete data", data)
         return resdata
     }

@@ -1,5 +1,6 @@
 const { categoryService } = require("./category.service")
-
+const {validate} = require("../../lib/validate")
+const {categorySchema} = require("./dto/index")
 class CategoryController {
     #Categorycontroller
     constructor(Categorycontroller){
@@ -18,6 +19,7 @@ class CategoryController {
     async create(req, res, next){
         try {
             const body = req.body
+            validate(categorySchema, body)
             const data = await this.#Categorycontroller.createData(body)
             res.status(data.statusCode).json(data)
         } catch (error) {

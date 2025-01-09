@@ -15,7 +15,7 @@ class ProductService {
     async createData(dto){
         const data = await this.#productservice.create({
             name:dto.name,
-            decr:dto.decr,
+            desc:dto.desc,
             price:dto.price,
             count:dto.count,
             categoryID:dto.categoryID
@@ -34,6 +34,27 @@ class ProductService {
         const data = await this.#productservice.findOne({_id:id})
         const resdata = new ResData(200, "succes", data)
         return resdata
+    }
+
+
+    async updateProduct(id, dto){
+        let data  = await this.#productservice.updateOne({_id:id}, {
+            name:dto.name,
+            decr:dto.decr,
+            price:dto.price,
+            count:dto.count,
+            categoryID:dto.categoryID
+        })
+
+        
+        console.log(data);
+        
+
+        
+
+        const resdata = new ResData(200, "success", data)
+        return resdata
+
     }
 }
 

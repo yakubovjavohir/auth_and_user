@@ -1,6 +1,8 @@
 const { CustomError } = require("../../lib/customError")
 const { ProductModel } = require("./entity/product.entity")
 const {productService} = require("./product.service")
+const { validate } = require("../../lib/validate")
+const {productSchema} = require("./dto/index")
 class ProductController {
     #productController
     constructor(productController){
@@ -31,13 +33,29 @@ class ProductController {
         try {
             const id = req.params.id
             const productId = await this.#productController.getById(id)
-            console.log(productId.data);
             
             if (!productId.data) {
                 throw new CustomError(404, "nod found!")
             }
             const data = await this.#productController.deleteData(productId.data)
             res.status(data.statusCode).json(data)
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+
+    async update(req, res, next){
+        try {
+            const id = req.params.id
+            const dto = req.body
+
+            validate(productSchema, dto)
+
+            const data = await this.#productController.updateProduct(id, dto)
+            
+            res.status(data.statusCode).json(data)
+
         } catch (error) {
             next(error)
         }
